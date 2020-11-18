@@ -20,8 +20,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  bool isVisible = false;
-  double valueToConvert = 0;
+  bool isVisible = false; //used for setting converted value text's visibility
+  double valueToConvert = 0; // value from the textField
   String error;
 
   @override
@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
         title: Text('Converter App'),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
+      body: SingleChildScrollView( // used for solving keyboard overflow
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -47,7 +47,8 @@ class _HomePageState extends State<HomePage> {
                     hintText: "Introduceti suma pe care vreti sa o convertiti",
                   ),
                   onChanged: (String value) {
-                    valueToConvert = double.tryParse(value);
+                    valueToConvert = double.tryParse(value); // try to parse the string into double
+                                                              // didn't use setState because I only want to use it when button is pressed
                   },
                 ),
               ),
@@ -64,7 +65,7 @@ class _HomePageState extends State<HomePage> {
                   color: Colors.blue,
                   textColor: Colors.white,
                   onPressed: () {
-                    if (valueToConvert != null) {
+                    if (valueToConvert != null) { // if correct value is inserted, convert it and set the converted value text's visibility to true
                       setState(() {
                         valueToConvert = valueToConvert * 4.5;
                         isVisible = true;
@@ -74,7 +75,7 @@ class _HomePageState extends State<HomePage> {
                       setState(() {
                         error = 'Introduceti un numar valid!';
                         isVisible = false;
-                        valueToConvert = 0;
+                        valueToConvert = 0; //to avoid null exception in the text widget
                       });
                   },
                 ),
